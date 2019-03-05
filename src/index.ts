@@ -1,26 +1,27 @@
 class Player {
     src: string;
     selector: string;
+    projector: HTMLVideoElement;
     constructor(src, selector) {
         this.src = src;
         this.selector = selector;
         
         const projectorRoot = document.querySelector(selector);
-        if(projectorRoot){
-            const projectorSrc = src;
-            const projector = `
-                <video>
-                    <source type="video/mp4" src="${projectorSrc}">
-                </video>
-            `;
-            projectorRoot.innerHTML = projector;
-        }
-        else{
-            console.error(`${selector} not found.`);
-        }
+        const projectorSrc = src;
+        
+        this.projector = document.createElement('video');
+        this.projector.src = projectorSrc
+
+        projectorRoot.appendChild(this.projector);
     }
     debug(){
         console.log(this.src, this.selector)
+    }
+    play(){
+        this.projector.play();
+    }
+    pause(){
+        this.projector.pause();
     }
 }
 
