@@ -8,11 +8,12 @@ class Player {
         
         const projectorRoot = document.querySelector(selector);
         const projectorSrc = src;
-        
+
         this.projector = document.createElement('video');
         this.projector.src = projectorSrc
 
         projectorRoot.appendChild(this.projector);
+        this.projector.width =  this.projector.parentElement.clientWidth;
     }
     debug(){
         console.log(this.src, this.selector)
