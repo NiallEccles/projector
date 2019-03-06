@@ -3,6 +3,8 @@ class Player {
     selector: string;
     projector: HTMLVideoElement;
     playButton: any;
+    pauseButton: any;
+    isPlaying: boolean;
     constructor(src, selector) {
         this.src = src;
         this.selector = selector;
@@ -15,11 +17,10 @@ class Player {
         // this.projector.setAttribute('controls', 'controls');
 
         this.playButton = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        // this.playButton.appendChild(document.createElementNS(this.playButton.namespaceURI,'polygon'));
-        // this.playButton.setAttribute('points', '3 3 54.99 35 3 67 3 3');
         const playButtonPolygon = document.createElementNS(this.playButton.namespaceURI,'polygon')
         playButtonPolygon.setAttribute('points', '3 3 54.99 35 3 67 3 3');
-        playButtonPolygon.setAttribute('style', 'fill:#fff;stroke:#fff200;stroke-linecap:round;stroke-linejoin:round;stroke-width:6px;');
+        playButtonPolygon.setAttribute('style', 'fill:none;stroke:#fff200;stroke-linecap:round;stroke-linejoin:round;stroke-width:6px;');
+
         playButtonPolygon.addEventListener('click', () => {
             this.play();
         });
@@ -37,9 +38,11 @@ class Player {
     }
     play(){
         this.projector.play();
+        this.isPlaying = true;
     }
     pause(){
         this.projector.pause();
+        this.isPlaying = false;
     }
 }
 
