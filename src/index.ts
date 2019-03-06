@@ -5,16 +5,16 @@ class Player {
     playButton: any;
     pauseButton: any;
     isPlaying: boolean;
+    projectorRoot: HTMLElement;
     constructor(src, selector) {
         this.src = src;
         this.selector = selector;
         this.isPlaying = false;
         
-        const projectorRoot = document.querySelector(selector);
-        const projectorSrc = src;
+        this.projectorRoot = document.querySelector(selector);
 
         this.projector = document.createElement('video');
-        this.projector.src = projectorSrc;
+        this.projector.src = this.src;
 
         this.playButton = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         this.playButton.setAttribute('id', 'playButton');
@@ -25,8 +25,8 @@ class Player {
 
         this.playButton.appendChild(playButtonPolygon);
 
-        projectorRoot.appendChild(this.projector);
-        projectorRoot.appendChild(this.playButton);
+        this.projectorRoot.appendChild(this.projector);
+        this.projectorRoot.appendChild(this.playButton);
         this.projector.width =  this.projector.parentElement.clientWidth;
 
         this.playButton.addEventListener('click', () => {
