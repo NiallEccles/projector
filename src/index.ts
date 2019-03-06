@@ -6,6 +6,7 @@ class Player {
     pauseButton: any;
     isPlaying: boolean;
     projectorRoot: HTMLElement;
+    playButtonPolygon: any;
     constructor(src, selector) {
         this.src = src;
         this.selector = selector;
@@ -19,11 +20,11 @@ class Player {
         this.playButton = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         this.playButton.setAttribute('id', 'playButton');
 
-        const playButtonPolygon = document.createElementNS(this.playButton.namespaceURI,'polygon')
-        playButtonPolygon.setAttribute('points', '3 3 54.99 35 3 67 3 3');
-        playButtonPolygon.setAttribute('style', 'fill:none;stroke:#fff200;stroke-linecap:round;stroke-linejoin:round;stroke-width:6px;');
+        this.playButtonPolygon = document.createElementNS(this.playButton.namespaceURI,'polygon')
+        this.playButtonPolygon.setAttribute('points', '3 3 54.99 35 3 67 3 3');
+        this.playButtonPolygon.setAttribute('style', 'fill:none;stroke:#fff200;stroke-linecap:round;stroke-linejoin:round;stroke-width:6px;');
 
-        this.playButton.appendChild(playButtonPolygon);
+        this.playButton.appendChild(this.playButtonPolygon);
 
         this.projectorRoot.appendChild(this.projector);
         this.projectorRoot.appendChild(this.playButton);
