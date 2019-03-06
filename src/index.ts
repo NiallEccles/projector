@@ -39,6 +39,10 @@ class Player {
                 this.pause();
             }
         });
+
+        this.projector.addEventListener('dblclick', () => {
+            this.projector.requestFullscreen();
+        });
     }
     debug(){
         console.log(this.src, this.selector, this.playButton)
