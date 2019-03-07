@@ -7,10 +7,12 @@ class Player {
     isPlaying: boolean;
     projectorRoot: HTMLElement;
     playButtonPolygon: any;
+    buttonStrokeColour: string;
     constructor(src, selector) {
         this.src = src;
         this.selector = selector;
         this.isPlaying = false;
+        this.buttonStrokeColour = '#fff200';
         
         this.projectorRoot = document.querySelector(selector);
 
@@ -22,7 +24,7 @@ class Player {
 
         this.playButtonPolygon = document.createElementNS(this.playButton.namespaceURI,'polygon')
         this.playButtonPolygon.setAttribute('points', '3 3 54.99 35 3 67 3 3');
-        this.playButtonPolygon.setAttribute('style', 'fill:none;stroke:#fff200;stroke-linecap:round;stroke-linejoin:round;stroke-width:6px;');
+        this.playButtonPolygon.setAttribute('style', `fill:none;stroke:${this.buttonStrokeColour};stroke-linecap:round;stroke-linejoin:round;stroke-width:6px;`);
 
         this.playButton.appendChild(this.playButtonPolygon);
 
