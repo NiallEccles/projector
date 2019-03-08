@@ -2,6 +2,7 @@ class Player {
     src: string;
     selector: string;
     projector: HTMLVideoElement;
+    projectorWrapper: HTMLElement;
     playButton: any;
     pauseButton: any;
     isPlaying: boolean;
@@ -19,6 +20,10 @@ class Player {
         this.projector = document.createElement('video');
         this.projector.src = this.src;
 
+        this.projectorWrapper = document.createElement('div');
+        this.projectorWrapper.classList.add('projector-wrapper');
+        this.projectorWrapper.style.width = '100%';
+
         this.playButton = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         this.playButton.setAttribute('id', 'playButton');
 
@@ -28,18 +33,20 @@ class Player {
 
         this.playButton.appendChild(this.playButtonPolygon);
 
-        this.projectorRoot.appendChild(this.projector);
-        this.projectorRoot.appendChild(this.playButton);
-        // this.projector.width =  this.projector.parentElement.clientWidth;
+        this.projectorRoot.appendChild(this.projectorWrapper);
+        this.projectorWrapper.appendChild(this.projector);
+        this.projectorWrapper.appendChild(this.playButton);
         this.projector.style.width = '100%';
 
         this.playButton.addEventListener('click', () => {
             this.play();
+            this.playButton.style.display = 'none';
         });
 
         this.projector.addEventListener('click', () => {
             if(this.isPlaying){
                 this.pause();
+                this.playButton.style.display = 'block';
             }
         });
 
@@ -48,7 +55,7 @@ class Player {
         });
     }
     debug(){
-        console.log(this.src, this.selector, this.playButton)
+        console.log(this.src, this.selector, this.playButton);
     }
     play(){
         this.projector.play();
