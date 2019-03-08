@@ -30,7 +30,8 @@ class Player {
 
         this.projectorRoot.appendChild(this.projector);
         this.projectorRoot.appendChild(this.playButton);
-        this.projector.width =  this.projector.parentElement.clientWidth;
+        // this.projector.width =  this.projector.parentElement.clientWidth;
+        this.projector.style.width = '100%';
 
         this.playButton.addEventListener('click', () => {
             this.play();
