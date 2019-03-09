@@ -23,11 +23,14 @@ class Player {
         this.projectorWrapper = document.createElement('div');
         this.projectorWrapper.classList.add('projector-wrapper');
         this.projectorWrapper.style.width = '100%';
+        this.projectorWrapper.style.position = 'relative';
 
         this.playButton = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         this.playButton.setAttribute('id', 'playButton');
+        this.playButton.setAttribute('viewbox', '0 0 50 50');
+        this.playButton.setAttribute('style', 'position: absolute; top: 50%; left: 50%; width: 60px; height: 72px; transform: translate(-50%, -50%);');
 
-        this.playButtonPolygon = document.createElementNS(this.playButton.namespaceURI,'polygon')
+        this.playButtonPolygon = document.createElementNS(this.playButton.namespaceURI,'polygon');
         this.playButtonPolygon.setAttribute('points', '3 3 54.99 35 3 67 3 3');
         this.playButtonPolygon.setAttribute('style', `fill:none;stroke:${this.buttonStrokeColour};stroke-linecap:round;stroke-linejoin:round;stroke-width:6px;`);
 
