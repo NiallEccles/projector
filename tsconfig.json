@@ -5,6 +5,12 @@
         "noImplicitAny": false,
         "sourceMap": true,
         "outDir": "dist",
+        "typeRoots": [
+            "node_modules/@types"
+        ],
+        "types": [
+            "youtube"
+        ],
         "lib": [
             "dom",
             "es2015",

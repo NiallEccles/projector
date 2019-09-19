@@ -11,6 +11,7 @@
   "author": "Niall Eccles",
   "license": "ISC",
   "dependencies": {
-    "nodemon": "^1.18.10"
+    "@types/youtube": "0.0.38",
+    "nodemon": "^1.19.2"
   }
 }
