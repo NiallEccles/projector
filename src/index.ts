@@ -39,8 +39,8 @@ class Player {
         $.body.appendChild(overlay);
         //set the inner of overlay
         overlay.innerHTML = 
-        `<div id="ytvideoembed" style="position:absolute;top:0;left:0;width:100vw;height:100vh;background:rgb(0, 0, 0, 0.9);">
-            <div class="yt-container" style="position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%); text-align:center;">
+        `<div id="ytvideoembed" style="position:absolute;top:0;left:0;width:100vw;height:100vh;">
+            <div class="yt-container" style="position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%); text-align:center;background:rgb(0, 0, 0, 0);">
                 <div id="player"></div>
                 <button class="yt-button">Close</button>
             </div>
