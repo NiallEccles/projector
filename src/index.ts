@@ -39,9 +39,7 @@ class Player {
             height: '100%',
             playerVars:{
                 'autoplay': 1,
-                'color': 'white',
                 'rel': 0,
-                'showinfo': 0,
             },
             events: {
                 'onReady': this.onPlayerReady
