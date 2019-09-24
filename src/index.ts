@@ -64,11 +64,10 @@ class Player {
         event.target.playVideo();
         event.target.mute();
     }
-    public stopVideo(): HTMLElement{
+    public stopVideo(): void{
         this.player.stopVideo();
         $.body.style.cssText = '';
-        const element = $.getElementById('ytvideoembed');
-        return element.parentNode.removeChild(element);
+        this.removeOverlay();
     }
     public resize(): void{
         const el = $.getElementById('yt-container');
@@ -106,8 +105,10 @@ class Player {
                                     ? this._width / this._height
                                     : this._width / this._height;
     }
-    public removeOverlay(){
-        const element = $.getElementById('player');
+    public removeOverlay(): void{
+        const player = $.getElementById('player');
+        player.parentNode.removeChild(player);
+        const element = $.getElementById('ytvideoembed');
         element.parentNode.removeChild(element);
     }
 }
