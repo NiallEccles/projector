@@ -37,12 +37,15 @@ class Projector {
     //append overlay to body
     $.body.appendChild(overlay);
     //set the inner of overlay - includes a container, YT player and button
-    overlay.innerHTML = `<div class="yt-container" id="yt-container" style="position:absolute;left:50%;top:50%;transform:translate(-50%, -50%);background:rgb(0, 0, 0, 0);">
-                <div id="player"></div>
-                <button class="yt-button" style="position: relative;left: 50%;transform: translateX(-50%);">Close</button>
+    overlay.innerHTML = `<div class="projector-container" id="projector-container" style="position:absolute;left:50%;top:50%;transform:translate(-50%, -50%);background:rgb(0, 0, 0, 0);">
+                <div id="projector"></div>
+                <button class="projector-button" id="projector-button" style="position: relative;z-index:11;left: 50%;transform: translateX(-50%);">Close</button>
             </div>`;
+    $.getElementById('projector-button').addEventListener("click",()=>{
+        this.stopVideo();
+    })
     //create the YT player
-    this.player = new YT.Player("player", {
+    this.player = new YT.Player("projector", {
       videoId: this.src,
       width: "100%",
       height: "100%",
@@ -69,7 +72,7 @@ class Projector {
     this.removeOverlay();
   }
   public resize(): void {
-    const el = $.getElementById("yt-container");
+    const el = $.getElementById("projector-container");
     const windowRatio = window.innerWidth / window.innerHeight;
 
     const margin = 60;
@@ -107,10 +110,9 @@ class Projector {
   }
   public removeOverlay(): void {
     $.body.style.cssText = "";
-    const player = $.getElementById("player");
-    player.parentNode.removeChild(player);
+    const player = $.getElementById("projector");
+    player ? player.parentNode.removeChild(player) : '';
     const element = $.getElementById("ytvideoembed");
-    element.removeEventListener("touchmove", () => {});
-    element.parentNode.removeChild(element);
+    element ? element.parentNode.removeChild(element) : '';
   }
 }
