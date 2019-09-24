@@ -1,114 +1,116 @@
 const $ = document;
 class Player {
-    public src: string;
-    public selector: HTMLElement;
-    public player: YT.Player;
-    private _width: number = 16;
-    private _height: number = 9;
-    private _aspectRatio: number;
-    constructor(src) {
-        this.src = src;
-        //check if there already is a YT embed script
-        if (!window['ytEmbedVideoScript']) {
-            //create the script tag
-            var tag = $.createElement('script');
-            //set the src and append it
-            tag.src = "https://www.youtube.com/iframe_api";
-            var firstScriptTag =  $.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-            window['ytEmbedVideoScript'] = true;
-        }
+  public src: string;
+  public selector: HTMLElement;
+  public player: YT.Player;
+  private _width: number = 16;
+  private _height: number = 9;
+  private _aspectRatio: number;
+  constructor(src) {
+    this.src = src;
+    //check if there already is a YT embed script
+    if (!window["ytEmbedVideoScript"]) {
+      //create the script tag
+      var tag = $.createElement("script");
+      //set the src and append it
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = $.getElementsByTagName("script")[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      window["ytEmbedVideoScript"] = true;
     }
-    public start(): void{
-        //create the overlay
-        const overlay = $.createElement('div');
-        //stop scrolling
-        $.body.style.cssText = 'overflow:hidden';
-        overlay.addEventListener('touchmove',(e)=>{
-            e.preventDefault();
-        })
-        //set attributes and styles
-        overlay.setAttribute('id', 'ytvideoembed');
-        overlay.style.cssText = 'position:absolute;top:0;left:0;width:100vw;height:100vh;background:rgb(0, 0, 0, 0.9);';
-        overlay.addEventListener('click', ()=>{
-            this.stopVideo();
-        });
-        //append to body
-        $.body.appendChild(overlay);
-        //set the inner of overlay
-        overlay.innerHTML = 
-            `<div class="yt-container" id="yt-container" style="position:absolute;left:50%;top:50%;transform:translate(-50%, -50%);background:rgb(0, 0, 0, 0);">
+  }
+  public start(): void {
+    //create the overlay
+    const overlay = $.createElement("div");
+    //stop scrolling
+    $.body.style.cssText = "overflow:hidden";
+    overlay.addEventListener("touchmove", e => {
+      e.preventDefault();
+    });
+    //set attributes and styles
+    overlay.setAttribute("id", "ytvideoembed");
+    overlay.style.cssText =
+      "position:absolute;top:0;left:0;width:100vw;height:100vh;background:rgb(0, 0, 0, 0.9);";
+    overlay.addEventListener("click", () => {
+      this.stopVideo();
+    });
+    //append to body
+    $.body.appendChild(overlay);
+    //set the inner of overlay
+    overlay.innerHTML = `<div class="yt-container" id="yt-container" style="position:absolute;left:50%;top:50%;transform:translate(-50%, -50%);background:rgb(0, 0, 0, 0);">
                 <div id="player"></div>
                 <button class="yt-button" style="position: relative;left: 50%;transform: translateX(-50%);">Close</button>
             </div>`;
-        //create the YT player
-        this.player =  new YT.Player('player', {
-            videoId: this.src,
-            width: '100%',
-            height: '100%',
-            playerVars:{
-                'autoplay': 1,
-                'rel': 0,
-            },
-            events: {
-                'onReady': this.onPlayerReady
-            }
-        });
-        this.updateAspectRatio();
-        this.resize();
-        window.addEventListener('resize',()=>{
-            this.resize();
-        })
-    }
-    public onPlayerReady(event): void{
-        event.target.playVideo();
-        event.target.mute();
-    }
-    public stopVideo(): void{
-        this.player.stopVideo();
-        $.body.style.cssText = '';
-        this.removeOverlay();
-    }
-    public resize(): void{
-        const el = $.getElementById('yt-container');
-        const windowRatio = window.innerWidth / window.innerHeight;
-        
-        const margin = 60;
-        let actualWidth = (window.innerWidth - (margin*2));
-        let actualHeight = (window.innerHeight - (margin*6));
+    //create the YT player
+    this.player = new YT.Player("player", {
+      videoId: this.src,
+      width: "100%",
+      height: "100%",
+      playerVars: {
+        autoplay: 1,
+        rel: 0
+      },
+      events: {
+        onReady: this.onPlayerReady
+      }
+    });
+    this.updateAspectRatio();
+    this.resize();
+    window.addEventListener("resize", () => {
+      this.resize();
+    });
+  }
+  public onPlayerReady(event): void {
+    event.target.playVideo();
+    event.target.mute();
+  }
+  public stopVideo(): void {
+    this.player.stopVideo();
+    this.removeOverlay();
+  }
+  public resize(): void {
+    const el = $.getElementById("yt-container");
+    const windowRatio = window.innerWidth / window.innerHeight;
 
-        actualWidth = actualWidth > 1600 ? 1600 : actualWidth;
-        actualHeight = actualHeight > 900 ? 900 : actualHeight;
+    const margin = 60;
+    let actualWidth = window.innerWidth - margin * 2;
+    let actualHeight = window.innerHeight - margin * 6;
 
-        const baseWidth = (actualWidth/window.innerWidth) * 100;
-        const baseHeight = (actualHeight/window.innerHeight) * 100;
+    actualWidth = actualWidth > 1600 ? 1600 : actualWidth;
+    actualHeight = actualHeight > 900 ? 900 : actualHeight;
 
-        let width: string;
-        let height: string;
+    const baseWidth = (actualWidth / window.innerWidth) * 100;
+    const baseHeight = (actualHeight / window.innerHeight) * 100;
 
-        if(this._aspectRatio < windowRatio){
-            this._height = baseHeight;
-            height = this._height + 'vh';
-            this._width = (baseHeight * this._aspectRatio);
-            width = this._width + 'vh';
-        } else {
-            this._width = baseWidth;
-            width = this._width + 'vw';
-            this._height = (baseWidth / this._aspectRatio);
-            height = this._height + 'vw';
-        }
+    let width: string;
+    let height: string;
 
-        el.style.cssText = `position:absolute;left:50%;top:50%;transform:translate(-50%, -50%);background:rgb(0, 0, 0, 0);margin:auto;width:${width};height:${height}`;
+    if (this._aspectRatio < windowRatio) {
+      this._height = baseHeight;
+      height = this._height + "vh";
+      this._width = baseHeight * this._aspectRatio;
+      width = this._width + "vh";
+    } else {
+      this._width = baseWidth;
+      width = this._width + "vw";
+      this._height = baseWidth / this._aspectRatio;
+      height = this._height + "vw";
     }
-    private updateAspectRatio(): void{
-        this._aspectRatio = (!!this._width && !!this._height)
-                                    ? this._width / this._height
-                                    : this._width / this._height;
-    }
-    public removeOverlay(): void{
-        const player = $.getElementById('player');
-        player.parentNode.removeChild(player);
-        const element = $.getElementById('ytvideoembed');
-        element.parentNode.removeChild(element);
-    }
+
+    el.style.cssText = `position:absolute;left:50%;top:50%;transform:translate(-50%, -50%);background:rgb(0, 0, 0, 0);margin:auto;width:${width};height:${height}`;
+  }
+  private updateAspectRatio(): void {
+    this._aspectRatio =
+      !!this._width && !!this._height
+        ? this._width / this._height
+        : this._width / this._height;
+  }
+  public removeOverlay(): void {
+    $.body.style.cssText = "";
+    const player = $.getElementById("player");
+    player.parentNode.removeChild(player);
+    const element = $.getElementById("ytvideoembed");
+    element.removeEventListener("touchmove", () => {});
+    element.parentNode.removeChild(element);
+  }
 }
