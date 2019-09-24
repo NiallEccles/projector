@@ -1,5 +1,5 @@
 const $ = document;
-class Player {
+class Projector {
   public src: string;
   public selector: HTMLElement;
   public player: YT.Player;
