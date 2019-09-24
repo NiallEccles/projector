@@ -11,7 +11,48 @@ class Player {
         this.createScript();
     }
     public start(): void{
-        this.createOverlay();
+        //create the overlay
+        const overlay = $.createElement('div');
+        //stop scrolling
+        $.body.style.cssText = 'overflow:hidden';
+        overlay.addEventListener('touchmove',(e)=>{
+            e.preventDefault();
+        })
+        //set attributes and styles
+        overlay.setAttribute('id', 'ytvideoembed');
+        overlay.style.cssText = 'position:absolute;top:0;left:0;width:100vw;height:100vh;background:rgb(0, 0, 0, 0.9);';
+        overlay.addEventListener('click', ()=>{
+            this.stopVideo();
+        });
+        //append to body
+        $.body.appendChild(overlay);
+        //set the inner of overlay
+        overlay.innerHTML = 
+            `<div class="yt-container" id="yt-container" style="position:absolute;left:50%;top:50%;transform:translate(-50%, -50%);background:rgb(0, 0, 0, 0);">
+                <div id="player"></div>
+                <button class="yt-button" style="position: relative;left: 50%;transform: translateX(-50%);">Close</button>
+            </div>`;
+        //create the YT player
+        this.player =  new YT.Player('player', {
+            videoId: this.src,
+            width: '100%',
+            height: '100%',
+            playerVars:{
+                'autoplay': 1,
+                'color': 'white',
+                'rel': 0,
+                'showinfo': 0,
+            },
+            events: {
+                'onReady': this.onPlayerReady
+            }
+        });
+        this.updateAspectRatio();
+        this.resize();
+        //adjust container on window resize
+        window.addEventListener('resize',()=>{
+            this.resize();
+        })
     }
     public onPlayerReady(event): void{
         event.target.playVideo();
@@ -58,44 +99,6 @@ class Player {
         this._aspectRatio = (!!this._width && !!this._height)
                                     ? this._width / this._height
                                     : this._width / this._height;
-    }
-    public createOverlay(): void{
-        //create the overlay
-        const overlay = $.createElement('div');
-        //stop scrolling
-        $.body.style.cssText = 'overflow:hidden';
-        overlay.addEventListener('touchmove',(e)=>{
-            e.preventDefault();
-        })
-        //set attributes and styles
-        overlay.setAttribute('id', 'ytvideoembed');
-        overlay.style.cssText = 'position:absolute;top:0;left:0;width:100vw;height:100vh;background:rgb(0, 0, 0, 0.9);';
-        overlay.addEventListener('click', ()=>{
-            this.stopVideo();
-        });
-        //append to body
-        $.body.appendChild(overlay);
-        //set the inner of overlay
-        overlay.innerHTML = 
-            `<div class="yt-container" id="yt-container" style="position:absolute;left:50%;top:50%;transform:translate(-50%, -50%);background:rgb(0, 0, 0, 0);">
-                <div id="player"></div>
-                <button class="yt-button" style="position: relative;left: 50%;transform: translateX(-50%);">Close</button>
-            </div>`;
-        //create the YT player
-        this.player =  new YT.Player('player', {
-            videoId: this.src,
-            width: '100%',
-            height: '100%',
-            events: {
-                'onReady': this.onPlayerReady
-            }
-        });
-        this.updateAspectRatio();
-        this.resize();
-        //adjust container on window resize
-        window.addEventListener('resize',()=>{
-            this.resize();
-        })
     }
     public removeOverlay(){
         const element = $.getElementById('player');
