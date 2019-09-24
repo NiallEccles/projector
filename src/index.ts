@@ -8,7 +8,16 @@ class Player {
     private _aspectRatio: number;
     constructor(src) {
         this.src = src;
-        this.createScript();
+        //check if there already is a YT embed script
+        if (!window['ytEmbedVideoScript']) {
+            //create the script tag
+            var tag = $.createElement('script');
+            //set the src and append it
+            tag.src = "https://www.youtube.com/iframe_api";
+            var firstScriptTag =  $.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            window['ytEmbedVideoScript'] = true;
+        }
     }
     public start(): void{
         //create the overlay
@@ -47,7 +56,6 @@ class Player {
         });
         this.updateAspectRatio();
         this.resize();
-        //adjust container on window resize
         window.addEventListener('resize',()=>{
             this.resize();
         })
@@ -101,17 +109,5 @@ class Player {
     public removeOverlay(){
         const element = $.getElementById('player');
         element.parentNode.removeChild(element);
-    }
-    public createScript(): void{
-        //check if there already is a YT embed script
-        if (!window['ytEmbedVideoScript']) {
-            //create the script tag
-            var tag = $.createElement('script');
-            //set the src and append it
-            tag.src = "https://www.youtube.com/iframe_api";
-            var firstScriptTag =  $.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-            window['ytEmbedVideoScript'] = true;
-        }
     }
 }
