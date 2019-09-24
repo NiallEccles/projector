@@ -34,9 +34,9 @@ class Player {
     overlay.addEventListener("click", () => {
       this.stopVideo();
     });
-    //append to body
+    //append overlay to body
     $.body.appendChild(overlay);
-    //set the inner of overlay
+    //set the inner of overlay - includes a container, YT player and button
     overlay.innerHTML = `<div class="yt-container" id="yt-container" style="position:absolute;left:50%;top:50%;transform:translate(-50%, -50%);background:rgb(0, 0, 0, 0);">
                 <div id="player"></div>
                 <button class="yt-button" style="position: relative;left: 50%;transform: translateX(-50%);">Close</button>
@@ -54,6 +54,7 @@ class Player {
         onReady: this.onPlayerReady
       }
     });
+    //update aspect ratio and resize asap
     this.updateAspectRatio();
     this.resize();
     window.addEventListener("resize", () => {
@@ -62,7 +63,6 @@ class Player {
   }
   public onPlayerReady(event): void {
     event.target.playVideo();
-    event.target.mute();
   }
   public stopVideo(): void {
     this.player.stopVideo();
