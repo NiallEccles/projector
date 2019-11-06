@@ -15,3 +15,6 @@ A simple overlay for playing YouTube videos.
       myPlayer.start();
   });
 ```
+
+## Example
+![example image of video overlay](https://github.com/NiallEccles/projector/blob/media/example.jpg)
