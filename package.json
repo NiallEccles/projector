@@ -1,13 +1,19 @@
 {
-  "name": "pjctr",
+  "name": "@nialleccles/projector",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple overlay for playing YouTube videos.",
   "main": "index.js",
   "scripts": {
     "start": "tsc",
     "dev": "webpack",
     "build": "tsc -p"
   },
+  "repository": "NiallEccles/projector",
+  "keywords": [
+    "projector",
+    "video",
+    "youtube"
+  ],
   "author": "Niall Eccles",
   "license": "ISC",
   "dependencies": {

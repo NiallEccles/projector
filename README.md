@@ -3,9 +3,7 @@
 A simple overlay for playing YouTube videos.
 
 ## Setup
-`npm install`
-
-`npm run dev`
+`npm install @nialleccles/projector`
 
 
 ## Usage
