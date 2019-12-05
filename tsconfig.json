@@ -3,6 +3,7 @@
         "module": "commonjs",
         "target": "es5",
         "noImplicitAny": false,
+        "declaration": true,
         "sourceMap": true,
         "outDir": "dist",
         "typeRoots": [
@@ -16,7 +17,9 @@
             "es2015",
             "es5",
             "es6"
-        ]
+        ],
+        "moduleResolution": "node",
+        "esModuleInterop": true
     },
     "exclude": [
         "node_modules",

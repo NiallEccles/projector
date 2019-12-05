@@ -1,17 +1,23 @@
 {
-  "name": "projector",
+  "name": "pjctr",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "tsc",
-    "dev": "nodemon"
+    "dev": "webpack",
+    "build": "tsc -p"
   },
   "author": "Niall Eccles",
   "license": "ISC",
   "dependencies": {
-    "@types/youtube": "0.0.38",
-    "nodemon": "^1.19.2"
+    "@types/youtube": "0.0.38"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.2",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.7.3",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
   }
 }
