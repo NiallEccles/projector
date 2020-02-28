@@ -8,7 +8,9 @@ A simple overlay for playing YouTube videos.
 
 ## Usage
 ```javascript
-  var myPlayer = new Projector('<YouTubeVideoId>');
+  const projector = require('@nialleccles/projector')
+
+  var myPlayer = new projector.Projector('<YouTubeVideoId>');
   document.getElementById('<yourElementId>').addEventListener('click', ()=>{
       myPlayer.start();
   });
