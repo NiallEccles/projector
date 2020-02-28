@@ -1,6 +1,6 @@
 {
   "name": "@nialleccles/projector",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A simple overlay for playing YouTube videos.",
   "main": "index.js",
   "scripts": {
