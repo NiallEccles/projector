@@ -19,7 +19,6 @@ export class Projector {
       }
     }
     public start(): void {
-      console.log('greayuf7raeiuhfgyaeru');
       //create the overlay
       const overlay = document.createElement("div");
       //stop scrolling
