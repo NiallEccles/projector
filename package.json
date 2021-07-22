@@ -1,6 +1,6 @@
 {
   "name": "@nialleccles/projector",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A simple overlay for playing YouTube videos.",
   "main": "index.js",
   "scripts": {
@@ -12,14 +12,14 @@
   "keywords": [
     "projector",
     "video",
-    "youtube"
+    "youtube",
+    "overlay"
   ],
   "author": "Niall Eccles",
   "license": "ISC",
-  "dependencies": {
-    "@types/youtube": "0.0.38"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "@types/youtube": "0.0.38",
     "nodemon": "^1.19.2",
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.3",
